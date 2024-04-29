@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>workspace</title>
+<link rel="stylesheet" href="styles.css">
+<script src="workspace.js"></script>
+</head>
+<body>
+<h1>Задание 1</h1>
+<div class="container mt-5">
+    <button id="toggleButton" class="btn btn-primary">Нажми, чтобы открыть/закрыть блок</button>
+    <div id="dropdownBlock" class="dropdown">
+        Содержимое выпадающего блока
+    </div>
+</div>
+
+<h1>Задание 2</h1>
+<div class="container mt-5">
+    <form id="inputForm">
+        <div class="form-group">
+            <label for="firstName">Имя</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Введите имя" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Фамилия</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Введите фамилию" required>
+        </div>
+        <div class="form-group">
+            <label for="middleName">Отчество</label>
+            <input type="text" class="form-control" id="middleName" placeholder="Введите отчество" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
+
+<div id="output" class="container mt-3"></div>
+
+<button id="scrollToTopBtn" class="btn btn-primary">Наверх</button> <!-- Добавляем кнопку "Наверх" -->
+
+<h1>Задание 3</h1>
+<div style="height: 2000px; background-color: #f0f0f0;">
+    <p style="padding: 20px;">Здесь можно прокрутить страницу вниз, чтобы проверить функционал кнопки "Наверх".</p>
+</div>
+</body>
+</html>
