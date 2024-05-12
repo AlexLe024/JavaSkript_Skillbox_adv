@@ -34,3 +34,16 @@ button:disabled {
 input:invalid {
     border: 1px solid red;
 }
+
+.card-number-wrapper {
+    position: relative;
+}
+
+#payment-system-image {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-20%);
+    width: 40px; 
+    height: auto;
+}
