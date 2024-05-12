@@ -4,6 +4,7 @@ const cvvInput = document.getElementById('cvv');
 const emailInput = document.getElementById('email');
 const payButton = document.getElementById('pay-button');
 const errorMessage = document.getElementById('error-message');
+const paymentSystemImage = document.getElementById('payment-system-image');
 
 cardNumberInput.addEventListener('input', formatAndValidateCardNumber);
 expiryDateInput.addEventListener('input', validateExpiryDate);
@@ -12,7 +13,7 @@ emailInput.addEventListener('input', validateEmail);
 
 expiryDateInput.addEventListener('input', function(event) {
     const input = event.target;
-    const value = input.value.replace(/\D/g, ''); // Удалить все нецифровые символы
+    const value = input.value.replace(/\D/g, ''); 
     const month = value.slice(0, 2);
     const year = value.slice(2, 4);
 
@@ -22,15 +23,15 @@ expiryDateInput.addEventListener('input', function(event) {
 });
 
 payButton.addEventListener('click', function() {
-    const cardNumber = cardNumberInput.value.replace(/\D/g, ''); // Удалить все нецифровые символы
+    const cardNumber = cardNumberInput.value.replace(/\D/g, '');
     const expiryDate = expiryDateInput.value;
     const cvc = cvcInput.value;
     const email = emailInput.value;
 
-    const isCardNumberValid = /^(\d{4}\s?){4}$/.test(cardNumber); // Проверка на правильность номера карты
-    const isExpiryDateValid = /^\d{2}\/\d{2}$/.test(expiryDate); // Проверка на правильность даты окончания
-    const isCvcValid = /^\d{3}$/.test(cvc); // Проверка на правильность CVC/CVV
-    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Проверка на правильность email
+    const isCardNumberValid = /^(\d{4}\s?){4}$/.test(cardNumber);
+    const isExpiryDateValid = /^\d{2}\/\d{2}$/.test(expiryDate); 
+    const isCvcValid = /^\d{3}$/.test(cvc); 
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (!isCardNumberValid || !isExpiryDateValid || !isCvcValid || !isEmailValid) {
         errorMessage.style.display = 'block';
@@ -40,10 +41,41 @@ payButton.addEventListener('click', function() {
     }
 });
 
+
+
+cardNumberInput.addEventListener('input', function(event) {
+    const cardNumber = event.target.value.replace(/\D/g, ''); 
+
+    let paymentSystem = '';
+    if (cardNumber.length >= 2 && cardNumber.slice(0, 2) === '22') {
+        paymentSystem = 'mir';
+    } else if (cardNumber.length >= 1) {
+        const firstDigit = cardNumber.charAt(0);
+        switch (firstDigit) {
+            case '4':
+                paymentSystem = 'visa';
+                break;
+            case '5':
+                paymentSystem = 'mastercard';
+                break;
+            case '6':
+                paymentSystem = 'unionpay';
+                break;
+            default:
+                paymentSystem = 'default';
+                break;
+        }
+    }
+
+    const imagePath = paymentSystem ? `images/${paymentSystem}.png` : '';
+    paymentSystemImage.src = imagePath;
+});
+
+
 function formatAndValidateCardNumber(event) {
-    let cardNumber = event.target.value.replace(/\D/g, ''); // Remove all non-digit characters
-    cardNumber = cardNumber.replace(/(\d{4})(?=\d)/g, '$1 '); // Add a space every 4 digits
-    cardNumberInput.value = cardNumber.trim().slice(0, 19); // Trim to 19 characters and remove extra spaces
+    let cardNumber = event.target.value.replace(/\D/g, ''); 
+    cardNumber = cardNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
+    cardNumberInput.value = cardNumber.trim().slice(0, 19);
 
     if (/[^0-9 ]/.test(cardNumber)) {
         event.target.setCustomValidity('Номер карты может содержать только цифры');
@@ -57,8 +89,8 @@ function formatAndValidateCardNumber(event) {
 function validateExpiryDate(event) {
     const expiryDate = event.target.value;
     const [month, year] = expiryDate.split('/');
-    const currentYear = new Date().getFullYear() % 100; // Get last 2 digits of the current year
-    const currentMonth = new Date().getMonth() + 1; // Get current month (January is 1)
+    const currentYear = new Date().getFullYear() % 100; 
+    const currentMonth = new Date().getMonth() + 1; 
     
     if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
         event.target.setCustomValidity('Дата окончания должна быть в формате ММ/ГГ');
