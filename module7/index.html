@@ -8,8 +8,11 @@
 </head>
 <body>
     <form id="payment-form">
-        <label for="card-number">Номер карты:</label>
-        <input type="text" id="card-number" placeholder="1234 1234 1234 1234" maxlength="19" required>
+        <div class="card-number-wrapper">
+            <label for="card-number">Номер карты:</label>
+            <input type="text" id="card-number" placeholder="1234 1234 1234 1234" maxlength="19" required>
+            <img id="payment-system-image" src="" alt="Payment System Image">
+        </div>
 
         <label for="expiry-date">Дата окончания:</label>
         <input type="text" id="expiry-date" placeholder="ММ/ГГ" required>
